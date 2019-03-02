@@ -14,18 +14,20 @@ public class Quiz {
     private Map<String, Object> myMap = new HashMap<String, Object>();
     private ArrayList<Question> quizQuestions = new ArrayList<Question>();
 
-    public void readJsonFile(String fname) {
+    public boolean readJsonFile(String fname) {
         byte[] mapData = new byte[0];
         try {
             mapData = Files.readAllBytes(Paths.get(fname));
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
         ObjectMapper objectMapper = new ObjectMapper(); //Secret sauce!
         try {
             myMap = objectMapper.readValue(mapData, HashMap.class);
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
         Object quizJson = myMap.get("quiz");
         /*
@@ -47,6 +49,7 @@ public class Quiz {
                 quizQuestions.add(tempQuiz);
             }
         }
+        return true;
     }
 
     public Question getRandomQuestion() {
