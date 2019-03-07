@@ -14,7 +14,7 @@ public class QuizTest {
     @Test
     public void readJsonFileShouldReturnTrue() {
         Quiz testQuiz = new Quiz();
-        assertEquals(true,testQuiz.readJsonFile("quiz.json"));
+        assertTrue(testQuiz.readJsonFile("quiz.json"));
     }
 
     @Test
@@ -32,10 +32,12 @@ public class QuizTest {
                 testString == "movies" ||
                 testString == "sports" ||
                 testString == "books");
+        assertNotNull(testQuestion.getQuestion());
         assertTrue(testQuestion.getQuestion().length() > 10);
+        assertNotNull(testQuestion.getAnswer());
         assertTrue(testQuestion.getAnswer().length() > 1);
         testArrayList = testQuestion.getOptions();
-        assertTrue(testArrayList.size()==4);
+        assertEquals(testArrayList.size(), 4); // changed from assertTrue
         for (int i=0; i<4; i++) {
             assertTrue(testArrayList.get(i).toString().length() > 1);
         }
